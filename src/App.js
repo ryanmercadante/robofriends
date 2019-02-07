@@ -10,9 +10,19 @@ class App extends Component {
     // Because App owns state, including robots, its allowed to change it.
     super();
     this.state = {
-      robots: robots,
+      robots: [],
       searchField: ''
     }
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => {
+        return res.json()
+      })
+      .then(users => {
+        this.setState({ robots: users })
+      })
   }
 
   onSearchChange = (event) => {
